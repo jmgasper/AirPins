@@ -115,6 +115,8 @@ WaveformView::Draw(BRect updateRect)
 	rgb_color trace = fEntry->setting.mode == PinMode::Output
 		? kOutputTrace : kInputTrace;
 	SetHighColor(trace);
+	// two pixels at the usual font size: a bold trace, as pigg draws it
+	SetPenSize(std::max(1.0f, roundf(be_plain_font->Size() / 7)));
 
 	auto xOf = [&](bigtime_t time) {
 		return floorf(bounds.right - (fNow - time) * width / fSpan);
@@ -169,6 +171,7 @@ WaveformView::Draw(BRect updateRect)
 	if (bounds.right > x)
 		line(BPoint(x, yOf(level)), BPoint(bounds.right, yOf(level)));
 	EndLineArray();
+	SetPenSize(1);
 }
 
 

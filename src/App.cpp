@@ -117,6 +117,18 @@ App::AboutRequested()
 	about->AddText("Toolbar icons", icons);
 	about->AddExtraInfo("AirPins is distributed under the terms of the MIT"
 		" License.");
+	// over AirPins' window: a desktop of two screens is one wide BScreen,
+	// and its middle is the edge between them
+	if (fWindow != NULL && about->Lock()) {
+		BRect frame;
+		if (fWindow->LockLooper()) {
+			frame = fWindow->Frame();
+			fWindow->UnlockLooper();
+		}
+		if (frame.IsValid())
+			about->CenterIn(frame);
+		about->Unlock();
+	}
 	about->Show();
 }
 
