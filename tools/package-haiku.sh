@@ -9,13 +9,12 @@ make BUILD="$BUILD" all
 STAGE=$(mktemp -d /tmp/airpins-package-XXXXXX)
 trap 'rm -rf -- "$STAGE"' EXIT
 mkdir -p "$STAGE/apps" "$STAGE/data/deskbar/menu/Applications" \
-	"$STAGE/data/licenses" "$STAGE/documentation/packages/airpins" artifacts
+	"$STAGE/documentation/packages/airpins" artifacts
 cp "$BUILD/AirPins" "$STAGE/apps/AirPins"
 strip --strip-debug "$STAGE/apps/AirPins"
 xres -o "$STAGE/apps/AirPins" "$BUILD/AirPins.rsrc"
 sed "s/^architecture .*/architecture $ARCH/" resources/AirPins.PackageInfo \
 	> "$STAGE/.PackageInfo"
-cp LICENSE "$STAGE/data/licenses/AirPins"
 cp README.md LICENSE "$STAGE/documentation/packages/airpins/"
 mkdir -p "$STAGE/documentation/packages/airpins/third_party/pigg" \
 	"$STAGE/documentation/packages/airpins/icons"
