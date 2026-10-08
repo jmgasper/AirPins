@@ -20,8 +20,10 @@ CreateIcon(IconId icon, float size, rgb_color color)
 	if (icon < 0 || icon >= kIconCount || !(size >= 1 && size <= 1024))
 		return NULL;
 	int32 pixels = (int32)ceilf(size);
+	// Vector rasterization and tinting only access the pixels. SetIcon()
+	// creates the server-backed copies used to draw the button afterwards.
 	BBitmap* bitmap = new BBitmap(BRect(0, 0, pixels - 1, pixels - 1),
-		B_RGBA32);
+		B_BITMAP_NO_SERVER_LINK, B_RGBA32);
 	if (bitmap->InitCheck() != B_OK) {
 		delete bitmap;
 		return NULL;

@@ -1,5 +1,5 @@
 name airpins
-version 1.0.0-1
+version 1.0.0-2
 architecture arm64
 summary "Raspberry Pi GPIO pins for air/OS, after pigg"
 description "AirPins configures the Raspberry Pi's GPIO pins as inputs (with or without a pull resistor) or outputs, sets outputs (toggle or hold to invert) and shows every configured pin's level as an LED and a waveform. The pins can be laid out as on the 40-pin header, in GPIO number order, or compactly. Configurations are pigg's .pigg files. A native Haiku version of pigg by Andrew Mackenzie and the pigg contributors; it needs the rpi_gpio driver of the air/OS Raspberry Pi 4 image, and simulates the pins elsewhere."

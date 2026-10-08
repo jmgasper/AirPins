@@ -102,7 +102,7 @@ On air/OS or Haiku, with the `haiku_devel` package:
 ```sh
 make -j4            # build-haiku/AirPins
 make check          # the configuration, board and pin table tests
-make package        # artifacts/airpins-1.0.0-1-<arch>.hpkg
+make package        # artifacts/airpins-1.0.0-2-<arch>.hpkg
 ```
 
 Cross-building for the Raspberry Pi 4 from the air/OS build machine:

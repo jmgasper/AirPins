@@ -31,6 +31,9 @@ private:
 
 			IconId				fIcon;
 			bool				fInside;
+			IconId				fRenderedIcon;
+			float				fRenderedSize;
+			rgb_color			fRenderedColor;
 };
 
 }	// namespace airpins

@@ -20,7 +20,10 @@ IconButton::IconButton(const char* name, const char* label, IconId icon,
 	:
 	BButton(name, label, message),
 	fIcon(icon),
-	fInside(false)
+	fInside(false),
+	fRenderedIcon(kIconCount),
+	fRenderedSize(0),
+	fRenderedColor{0, 0, 0, 0}
 {
 	_UpdateIcon();
 }
@@ -115,10 +118,23 @@ IconButton::MouseMoved(BPoint where, uint32 transit,
 void
 IconButton::_UpdateIcon()
 {
-	BBitmap* bitmap = CreateIcon(fIcon, IconSize(),
-		ui_color(B_CONTROL_TEXT_COLOR));
+	float size = IconSize();
+	rgb_color color = ui_color(B_CONTROL_TEXT_COLOR);
+	// Attaching normally uses the icon already made by the constructor.
+	// Rebuild if the icon, font size or theme colour changed while detached.
+	if (fRenderedIcon == fIcon && fRenderedSize == size
+		&& fRenderedColor == color
+		&& IconBitmap(B_INACTIVE_ICON_BITMAP) != NULL) {
+		return;
+	}
+
+	BBitmap* bitmap = CreateIcon(fIcon, size, color);
 	if (bitmap != NULL) {
-		SetIcon(bitmap);
+		if (SetIcon(bitmap) == B_OK) {
+			fRenderedIcon = fIcon;
+			fRenderedSize = size;
+			fRenderedColor = color;
+		}
 		delete bitmap;
 	}
 }
